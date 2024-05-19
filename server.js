@@ -10,6 +10,7 @@ import {
   databaseUser,
   databasePassword,
 } from "./config/env.js";
+import users from "./src/routes/users.js";
 
 const fastify = Fastify({
   logger: {
@@ -26,6 +27,10 @@ fastify.register(cors, {
   credentials: true,
 });
 
+fastify.register(postgres, {
+  connectionString: `postgres://${databaseUser}:${databasePassword}@${databaseUrl}:${databasePort}/${databaseName}`,
+});
+
 fastify.register(jwt, {
   secret: "supersecret",
 });
@@ -34,6 +39,13 @@ fastify.register(cookie, {
   secret: "supersecret",
   hook: "preHandler",
 });
+
+fastify.register(
+  async function (apiRoutes) {
+    apiRoutes.register(users, { prefix: "/users" });
+  },
+  { prefix: "/api" }
+);
 
 fastify.listen({ port: 3000, host: "0.0.0.0" }, function (err) {
   if (err) {
