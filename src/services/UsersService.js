@@ -26,6 +26,14 @@ const UserService = {
       throw new Error(err.message);
     }
   },
+
+  async updateUsername(fastify, username, email) {
+    try {
+      return await UsersRepository.updateUsername(fastify, username, email);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  },
 };
 
 export default UserService;

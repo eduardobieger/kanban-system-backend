@@ -18,6 +18,16 @@ const UsersController = {
       throw new Error(err.message);
     }
   },
+
+  async udpateUsername(fastify, request) {
+    const { email, username } = request.body;
+
+    try {
+      return await UserService.updateUsername(fastify, username, email);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  },
 };
 
 export default UsersController;

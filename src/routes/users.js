@@ -18,4 +18,13 @@ export default async function users(fastify) {
       reply.code(500).send({ error: err.message });
     }
   });
+
+  fastify.put("/updateUsername", async (request, reply) => {
+    try {
+      await UsersController.udpateUsername(fastify, request);
+      reply.code(200).send({ message: "User updated" });
+    } catch (err) {
+      reply.code(500).send({ error: err.message });
+    }
+  });
 }

@@ -21,6 +21,17 @@ const UsersRepository = {
       throw new Error(err.message);
     }
   },
+
+  async updateUsername(fastify, username, email) {
+    try {
+      fastify.pg.query("UPDATE users SET username = $1 WHERE email = $2", [
+        username,
+        email,
+      ]);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  },
 };
 
 export default UsersRepository;
