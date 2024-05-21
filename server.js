@@ -11,6 +11,7 @@ import {
   databasePassword,
 } from "./config/env.js";
 import users from "./src/routes/users.js";
+import boards from "./src/routes/boards.js";
 
 const fastify = Fastify({
   logger: {
@@ -43,6 +44,7 @@ fastify.register(cookie, {
 fastify.register(
   async function (apiRoutes) {
     apiRoutes.register(users, { prefix: "/users" });
+    apiRoutes.register(boards, { prefix: "/boards" });
   },
   { prefix: "/api" }
 );
